@@ -1,0 +1,141 @@
+/*
+Theme Name: uwb Website
+Theme URI:
+Author URI: Dzmitry Andreyuk
+Version: 9.9.9
+License: GNU General Public License, version 3 (GPLv3)
+License URI: license.txt
+*/
+
+$colorbase: #000;
+$blue-light: #0F75BC;
+$blue-dark: #40428D;
+$gray: #A9A9A9;
+
+@mixin v-center($pos:relative) {
+	position: $pos;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+@mixin h-center($pos:relative) {
+	position: $pos;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+@mixin all-center($pos:relative) {
+	position: $pos;
+	left: 50%;
+	top:50%;
+	transform: translate(-50%,-50%);
+}
+
+@mixin overlay() {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+@mixin outline($color:red) {
+	outline: 1px solid $color;
+}
+
+@mixin heading($color:$colorbase, $fs:initial, $ta:center, $fw:400) {
+	color: $color;
+	font-size: $fs;
+	text-align: $ta;
+	font-weight: $fw;
+}
+
+/* @include transit(color,.2s,ease-in-out); */
+@mixin transit($what: all, $when: 0.25s, $how: ease) {
+	transition: $what $when $how;
+}
+
+@for $i from 1 through 20 {
+	.#{mb}#{$i*5} {
+		margin-bottom: #{$i*5}px;
+	}
+}
+
+@for $i from 1 through 20 {
+	.#{mt}#{$i*5} {
+		margin-top: #{$i*5}px;
+	}
+}
+
+@for $i from 1 through 20 {
+	.#{pb}#{$i*5} {
+		padding-bottom: #{$i*5}px;
+	}
+}
+
+@for $i from 1 through 20 {
+	.#{pt}#{$i*5} {
+		padding-top: #{$i*5}px;
+	}
+}
+
+@mixin plusMinus($width, $lineWidth, $color) {
+	box-sizing: border-box;
+	transition: transform 0.3s;
+	width: $width;
+	height: $width;
+	transform: rotate(180deg);
+	position: relative;
+	
+	/*&:hover {
+    transform: rotate(0deg);
+	}*/
+	&::before {
+		content: '';
+		display: block;
+		width: $width;
+		height:0px;
+		border-bottom: solid $lineWidth $color;
+		position: absolute;
+		bottom:$width /2 - $lineWidth/2;
+		transform: rotate(90deg);
+		transition: width 0.3s;
+	}
+	/*&:hover::before {
+    content: '';
+    display: block;
+    width: 0px;
+    height:0px;
+    border-bottom: solid $lineWidth $color;
+    position: absolute;
+    bottom:$width /2 - $lineWidth/2;
+    transform: rotate(90deg);
+	}*/
+	&::after {
+		content: '';
+		display: block;
+		width: $width;
+		height:0px;
+		border-bottom: solid $lineWidth $color;
+		position: absolute;
+		bottom:$width /2 - $lineWidth/2;
+	}
+}
+
+.myiconmob {
+	@include plusMinus(24px, 2px, #fff);
+	
+	&.minus {transform: rotate(0deg);}
+	&.minus::before {
+		content: '';
+		display: block;
+		width: 0px;
+		height:0px;
+		border-bottom: solid 2px #fff;
+		position: absolute;
+		bottom:24px /2 - 2px/2;
+		transform: rotate(90deg);
+	}
+}
